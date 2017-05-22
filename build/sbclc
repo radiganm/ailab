@@ -1,0 +1,100 @@
+#!/bin/bash
+## sbclc
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
+
+  export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:./lib
+
+  d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
+  root=`readlink -f $d/..`
+  lib=$root/lib
+  bin=$root/bin
+
+ #LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:$lib/librad.so
+ #LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:$root/submodules/librad/.libs/librad.so
+  LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/:/usr/lib/:$root/submodules/librad/.libs/
+  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LDD}
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
+  echo $LD_LIBRARY_PATH
+
+  S__SUCCESS=0
+  S__NO_SUCH_COMMAND=1
+
+  usage()
+  {
+    cat <<-EOT 
+		$f -c [source.lisp] -o [target]
+EOT
+    exit 1
+  }
+
+  die()
+  {
+    code=$1; shift
+    msg=$1;  shift
+    echo "ERROR ${code}: ${msg}"
+    exit $code
+  }
+
+  if [[ "$#" == "0" ]]; then
+    usage
+  fi
+
+  while getopts ":c:o:" opt; do
+    case $opt in
+      c)
+        src=$OPTARG
+        ;;
+      o)
+        tgt=$OPTARG
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" >&2
+        ;;
+    esac
+  done
+
+  p_quick_lisp=`readlink -f ${root}/submodules/asdf-central-registry/dists/quicklisp/quicklisp`
+
+  p_asdf=`readlink -f ${root}/submodules/asdf-central-registry/dists/quicklisp/software`
+  p_bordeaux_threads=`readlink -f ${p_asdf}/bordeaux-threads-v0.8.5`
+  p_slime=`readlink -f ${p_asdf}/slime-v2.19`
+  p_swank_client=`readlink -f ${p_asdf}/swank-client-20150608-git`
+  p_unix_options=`readlink -f ${p_asdf}/unix-options-20151031-git`
+  p_base=`readlink -f ${p_asdf}/com.google.base-20151031-git`
+  p_split_sequence=`readlink -f ${p_asdf}/split-sequence-1.2`
+  p_usocket=`readlink -f ${p_asdf}/usocket-0.7.0.1`
+  p_alexandria=`readlink -f ${p_asdf}/alexandria-20170227-git`
+
+ #sbcl --non-interactive --no-inform --no-userinit <<-EOT 
+  sbcl --no-inform --no-userinit <<-EOT 
+  (require 'asdf)
+  (setf asdf:*central-registry*
+    (list* '*default-pathname-defaults* 
+     #p"${p_quick_lisp}/" 
+     #p"${p_bordeaux_threads}/" 
+     #p"${p_slime}/" 
+     #p"${p_swank_client}/" 
+     #p"${p_alexandria}/"
+     #p"${p_base}/"
+     #p"${p_split_sequence}/"
+     #p"${p_usocket}/"
+     #p"${p_unix_options}/" 
+     asdf:*central-registry*))
+  (probe-file "quicklisp.asd")
+  (probe-file "bordeau-threads.asd")
+  (probe-file "swank.asd")
+  (probe-file "swank-client.asd")
+  (probe-file "unix-options.asd")
+  (probe-file "base.asd")
+  (probe-file "split-sequence.asd")
+  (probe-file "usocket.asd")
+  (probe-file "alexandria.asd")
+  (setf sb-impl::*default-external-format* :UTF-8)
+  (load "${src}")
+  (sb-ext:save-lisp-and-die "${tgt}" :toplevel #'main :executable t :purify t)
+EOT
+
+  exit $S__SUCCESS
+
+## *EOF*

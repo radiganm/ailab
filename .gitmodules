@@ -1,6 +1,6 @@
 [submodule "submodules/librad"]
 	path = submodules/librad
-	url = git@github.com:radiganm/librad.git
+	url = https://github.com/radiganm/librad.git
 [submodule "submodules/asdf-central-registry"]
 	path = submodules/asdf-central-registry
-	url = git@github.com:radiganm/asdf-central-registry.git
+	url = https://github.com/radiganm/asdf-central-registry.git

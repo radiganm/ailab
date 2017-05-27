@@ -1,0 +1,71 @@
+#!/bin/bash
+## system
+## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
+
+  d=${0%/*}; f=${0##*/}; n=${f%.*}; e=${f##*.}
+  root=$d/..
+  lib=$root/lib
+  bin=$root/bin
+
+  S__SUCCESS=0
+  S__NO_SUCH_COMMAND=1
+
+  usage()
+  {
+    cat <<-EOT 
+		$f [ailab|ecl|lisp|sbcl|swank] [args]
+EOT
+    exit 1
+  }
+
+  die()
+  {
+    code=$1; shift
+    msg=$1;  shift
+    echo "ERROR ${code}: ${msg}"
+    exit $code
+  }
+
+  if [[ "$#" == "0" ]]; then
+    usage
+  fi
+
+  run()
+  {
+    cmd=$1; shift
+    LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:$lib/librad.so
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LDD}
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
+    export CHIBI_INCLUDE_PATH=./submodules/chibi-scheme/lib
+    export CHIBI_MODULE_PATH=./submodules/chibi-scheme/lib
+    export SYSTEM_HOME=$root
+    $cmd $*
+  }
+
+  cmd=$1; shift
+  case $cmd in
+    ailab)
+      run $bin/ailab $*
+      ;;
+    sbcl)
+      run $bin/lisp $*
+      ;;
+    lisp)
+      run $bin/lisp $*
+      ;;
+    swank)
+      run $bin/swank $*
+      ;;
+    ecl)
+      run $bin/ecl $*
+      ;;
+    *)
+      die $S__NO_SUCH_COMMAND "invalid command"
+      ;;
+  esac
+
+  exit $S__SUCCESS
+
+## *EOF*

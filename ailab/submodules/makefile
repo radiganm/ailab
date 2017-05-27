@@ -10,8 +10,8 @@ submodules: pre-install
 	(cd ./librad; ./configure && $(MAKE))
 
 pre-install:
-	./update.sh
-	(cd ./librad; ./bootstrap.sh)
+	#./update.sh
+	#(cd ./librad; ./bootstrap.sh)
 
 post-install: submodules
 	(mkdir -p ../lib; cd ../lib; ln -fs ../submodules/librad/.libs/* .)

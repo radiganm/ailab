@@ -1,0 +1,6 @@
+[submodule "ailab/submodules/asdf-central-registry"]
+	path = ailab/submodules/asdf-central-registry
+	url = https://github.com/radiganm/asdf-central-registry.git
+[submodule "ailab/submodules/librad"]
+	path = ailab/submodules/librad
+	url = https://github.com/radiganm/librad.git

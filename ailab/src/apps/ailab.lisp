@@ -9,8 +9,10 @@
 
   (load-shared-object "libgfortran.so.3.0.0")
   (load-shared-object "libfftw.so.2.0.7")
- ;(load-shared-object "librad.so")
-  (load-shared-object (concatenate 'string (sb-posix:getcwd) "/submodules/librad/.libs/librad.so"))
+  (load-shared-object "libanl.so")
+  (load-shared-object "librad.so")
+ ;(load-shared-object (concatenate 'string (sb-posix:getcwd) "/submodules/librad/.libs/librad.so"))
+ ;(load-shared-object "/opt/local/lib/librad.so")
   (sb-alien:define-alien-routine ("test" test) void)
 
   (setf swank::*swank-debug-p* nil)

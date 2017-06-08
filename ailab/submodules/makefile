@@ -12,7 +12,6 @@ submodules:
 update:
 	git submodule init && git submodule update --recursive --remote
 	$(MAKE) -C ./librad -f bootstrap.mk $@
-	$(MAKE) -C ./asdf-central-registry $@
 
 install:
 	$(MAKE) -C ./librad -f bootstrap.mk $@

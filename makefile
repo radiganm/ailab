@@ -3,7 +3,7 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: clean clobber submodules applications bootstrap update
+.PHONY: clean clobber submodules applications bootstrap update install
 .DEFAULT_GOAL := all
 
 BLDDIR=./build
@@ -40,6 +40,9 @@ bootstrap:
 	$(MAKE) -C ./ailab/submodules
 	sudo $(MAKE) -C ./ailab/submodules/librad install
 	$(MAKE) -C ./ailab
+
+install:
+	$(MAKE) -C ailab $@
 
 update:
 	$(MAKE) -C ./ailab/submodules update

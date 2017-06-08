@@ -34,9 +34,10 @@
 
   # install AILab
   COPY ./ailab /opt/ailab
-  RUN make -C /opt/ailab/submodules
-  RUN (cd /opt/ailab/submodules/librad && ./local-install.sh)
-  RUN make -C /opt/ailab
+ #RUN make -C /opt/ailab/submodules
+ #RUN (cd /opt/ailab/submodules/librad && ./local-install.sh)
+ #RUN make -C /opt/ailab
+  RUN make -C /opt/ailab install
 
   # clean up APT
   RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

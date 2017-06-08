@@ -16,6 +16,7 @@
       apt-get install -y     \
       git                    \
       sudo                   \
+      sbcl                   \
       ecl                    \
       autoconf               \
       automake               \

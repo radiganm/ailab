@@ -27,6 +27,8 @@
       libz-dev               \
       cmake                  \
       libgc-dev              \
+      libblas-dev            \
+      liblapack-dev          \
       libgmp3-dev            \
       libatomic-ops-dev      \
       libfuse-dev            \

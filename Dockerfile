@@ -15,12 +15,16 @@
   RUN apt-get update &&      \
       apt-get install -y     \
       git                    \
+      sudo                   \
+      ecl                    \
       autoconf               \
       automake               \
       build-essential        \
       gfortran               \
       fftw3-dev              \
+      libncurses-dev         \
       cmake                  \
+      libgc-dev              \
       libgmp3-dev            \
       libatomic-ops-dev      \
       libfuse-dev            \
@@ -36,6 +40,12 @@
 
   # clean up APT
   RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+  # add Docker with sudo permissions
+  RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+
+  # warm boot
+  RUN echo "(sleep 4)(quit)" | /opt/local/bin/ailab
 
   # entry point
   ADD ./ailab_ctl /usr/bin

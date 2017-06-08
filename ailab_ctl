@@ -89,7 +89,7 @@ EOT
   cmd=$1; shift
   case $cmd in
     ailab)
-      /opt/ailab/bin/ailab $*
+      /opt/local/bin/ailab $*
       ;;
     util)
       util $*

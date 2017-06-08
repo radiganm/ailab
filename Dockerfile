@@ -19,6 +19,7 @@
       ecl                    \
       autoconf               \
       automake               \
+      libtool                \
       build-essential        \
       gfortran               \
       fftw3-dev              \

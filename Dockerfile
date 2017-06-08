@@ -24,6 +24,7 @@
       gfortran               \
       fftw3-dev              \
       libncurses-dev         \
+      libz-dev               \
       cmake                  \
       libgc-dev              \
       libgmp3-dev            \

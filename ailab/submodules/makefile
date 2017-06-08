@@ -3,11 +3,16 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: submodules clean clobber update install
+.PHONY: submodules clean clobber update install librad shen-sbcl
 .DEFAULT_GOAL := submodules
 
-submodules:
+submodules: librad shen-sbcl
+
+librad:
 	$(MAKE) -C ./librad -f bootstrap.mk
+
+shen-sbcl:
+	$(MAKE) -C ./shen-sbcl
 
 update:
 	git submodule init && git submodule update --recursive --remote
@@ -16,6 +21,7 @@ update:
 install:
 	$(MAKE) -C ./librad -f bootstrap.mk $@
 	$(MAKE) -C ./asdf-central-registry $@
+	$(MAKE) -C ./shen-sbcl $@
 
 clean:
 	$(MAKE) -C librad $@

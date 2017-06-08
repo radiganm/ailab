@@ -3,23 +3,23 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: submodules clean clobber pre-install post-install update
+.PHONY: submodules clean clobber update install
 .DEFAULT_GOAL := submodules
 
-submodules: pre-install
-	(cd ./librad; ./configure --prefix=/opt/local && $(MAKE))
+submodules:
+	$(MAKE) -C ./librad -f bootstrap.mk
 
 update:
-	./update.sh
-	$(MAKE) -C ./librad $@
+	git submodule init && git submodule update --recursive --remote
+	$(MAKE) -C ./librad -f bootstrap.mk $@
+	$(MAKE) -C ./asdf-central-registry $@
 
-pre-install:
-
-post-install: submodules
-	(mkdir -p ../lib; cd ../lib; ln -fs ../submodules/librad/.libs/* .)
+install:
+	$(MAKE) -C ./librad -f bootstrap.mk $@
+	$(MAKE) -C ./asdf-central-registry $@
 
 clean:
-	$(MAKE) -C librad $<
+	$(MAKE) -C librad $@
 
 clobber: clean
 	$(MAKE) -C librad distclean

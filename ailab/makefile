@@ -3,7 +3,7 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: clean clobber submodules applications
+.PHONY: clean clobber submodules applications install
 .DEFAULT_GOAL := all
 
 BLDDIR=./build
@@ -12,6 +12,9 @@ all: applications
 
 submodules:
 	$(MAKE) -C $@
+
+install:
+	$(MAKE) -C submodules install
 
 applications:
 	$(MAKE) -f $(BLDDIR)/$@.mk

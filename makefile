@@ -3,7 +3,7 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: clean clobber submodules applications
+.PHONY: clean clobber submodules applications bootstrap update
 .DEFAULT_GOAL := all
 
 BLDDIR=./build
@@ -35,5 +35,13 @@ docker-run:
 docker-clean: 
 	docker ps -a --no-trunc | grep $(name) | awk '{print$$1}' | xargs -I{} docker stop {}
 	docker images -a --no-trunc | grep $(name) | awk '{print$$3}' | xargs -I{} docker rmi -f {}
+
+bootstrap:
+	$(MAKE) -C ./ailab/submodules
+	sudo $(MAKE) -C ./ailab/submodules/librad install
+	$(MAKE) -C ./ailab
+
+update:
+	$(MAKE) -C ./ailab/submodules update
 
 ## *EOF*

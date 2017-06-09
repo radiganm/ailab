@@ -1,4 +1,4 @@
-#!/usr/bin/make
+#!/usr/bin/make -f
 ## makefile (for AILab)
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved

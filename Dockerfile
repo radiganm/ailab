@@ -16,6 +16,7 @@
       apt-get install -y     \
       git                    \
       sudo                   \
+      locate                 \
       sbcl                   \
       ecl                    \
       autoconf               \
@@ -39,9 +40,6 @@
 
   # install AILab
   COPY ./ailab /opt/ailab
- #RUN make -C /opt/ailab/submodules
- #RUN (cd /opt/ailab/submodules/librad && ./local-install.sh)
- #RUN make -C /opt/ailab
   RUN make -C /opt/ailab install
 
   # clean up APT
@@ -50,8 +48,12 @@
   # add Docker with sudo permissions
   RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
+  ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/opt/local/lib:/usr/lib/x86_64-linux-gnu"
+
   # warm boot
   RUN echo "(sleep 4)(quit)" | /opt/local/bin/ailab
+
+  EXPOSE 4005
 
   # entry point
   ADD ./ailab_ctl /usr/bin

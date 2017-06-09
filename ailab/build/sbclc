@@ -9,10 +9,13 @@
   root=`readlink -f $d/..`
   lib=$root/lib
   bin=$root/bin
+  asdf_root=/opt/asdf-central-registry
+  lib_root=/opt/local/lib
 
  #LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:$lib/librad.so
  #LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0:/usr/lib/libfftw.so.2.0.7:$root/submodules/librad/.libs/librad.so
-  LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/:/usr/lib/:$root/submodules/librad/.libs/
+ #LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/:/usr/lib/:$root/submodules/librad/.libs/
+  LDD=./submodules/chibi-scheme:/usr/lib/x86_64-linux-gnu/:/usr/lib/:$lib_root
   LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LDD}
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
   echo $LD_LIBRARY_PATH
@@ -54,9 +57,10 @@ EOT
     esac
   done
 
-  p_quick_lisp=`readlink -f ${root}/submodules/asdf-central-registry/dists/quicklisp/quicklisp`
+ #p_quick_lisp=`readlink -f ${root}/submodules/asdf-central-registry/dists/quicklisp/quicklisp`
+  p_quick_lisp=`readlink -f ${asdf_root}/dists/quicklisp/quicklisp`
 
-  p_asdf=`readlink -f ${root}/submodules/asdf-central-registry/dists/quicklisp/software`
+  p_asdf=`readlink -f ${asdf_root}/dists/quicklisp/software`
   p_bordeaux_threads=`readlink -f ${p_asdf}/bordeaux-threads-v0.8.5`
   p_slime=`readlink -f ${p_asdf}/slime-v2.19`
   p_swank_client=`readlink -f ${p_asdf}/swank-client-20150608-git`

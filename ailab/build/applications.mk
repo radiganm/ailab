@@ -13,11 +13,13 @@ all: build
 APPS = 
 BINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(APPS:.cpp=))
 
+# $(APPDIR)/swank.lisp   
+# $(APPDIR)/lisp.lisp    
+# $(APPDIR)/ailab.lisp   
+# $(APPDIR)/test.lisp
+
 CLAPPS = \
-  $(APPDIR)/swank.lisp  \
-  $(APPDIR)/lisp.lisp   \
-  $(APPDIR)/ailab.lisp  \
-  $(APPDIR)/test.lisp
+  $(APPDIR)/ailab.lisp
 CLBINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(CLAPPS:.lisp=))
 
 CYAPPS = 

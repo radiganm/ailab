@@ -8,7 +8,7 @@
 
 BLDDIR=./build
 
-docker-args := -it -P -p 9011:9011 -v /dev:/dev -v /tmp:/tmp -ipc host -net host
+docker-args := -it -P -p4005:4005 -v /dev:/dev -v /tmp:/tmp -ipc host -net host
 
 all: applications
 
@@ -29,8 +29,11 @@ name = radiganm/ailab
 docker-build: 
 	docker build -t $(name) .
 
+docker-shell: 
+	docker run $(docker-args) $(name) util shell
+
 docker-run: 
-	docker run $(docker-args) $(name)
+	docker run $(docker-args) $(name) ailab
 
 docker-clean: 
 	docker ps -a --no-trunc | grep $(name) | awk '{print$$1}' | xargs -I{} docker stop {}

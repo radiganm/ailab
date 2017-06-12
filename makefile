@@ -34,7 +34,7 @@ docker-shell:
 	docker run $(docker-args) $(name) util shell
 
 docker-run: 
-	docker run $(docker-args) $(name) ailab
+	docker run $(docker-args) $(name)
 
 docker-clean: 
 	docker ps -a --no-trunc | grep $(name) | awk '{print$$1}' | xargs -I{} docker stop {}

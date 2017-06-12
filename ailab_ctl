@@ -39,9 +39,9 @@ EOT
     exit $code
   }
 
-  if [[ "$#" == "0" ]]; then
-    usage
-  fi
+# if [[ "$#" == "0" ]]; then
+#   usage
+# fi
 
   util()
   {
@@ -86,18 +86,20 @@ EOT
 
   trap sigint SIGINT
 
-  cmd=$1; shift
-  case $cmd in
-    ailab)
-      /opt/local/bin/ailab $*
-      ;;
-    util)
-      util $*
-      ;;
-    *)
-      die $S__NO_SUCH_COMMAND "invalid command: $cmd"
-      ;;
-  esac
+  /opt/local/bin/ailab $*
+
+# cmd=$1; shift
+# case $cmd in
+#   ailab)
+#     /opt/local/bin/ailab $*
+#     ;;
+#   util)
+#     util $*
+#     ;;
+#   *)
+#     die $S__NO_SUCH_COMMAND "invalid command: $cmd"
+#     ;;
+# esac
 
   exit $S__SUCCESS
 

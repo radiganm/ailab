@@ -15,6 +15,7 @@ submodules:
 
 install:
 	$(MAKE) -C submodules install
+	$(MAKE) applications
 	sudo mkdir -p /opt/local/bin && sudo cp -f ./scripts/system /opt/local/bin
 	sudo mkdir -p /opt/local/bin && sudo cp -f ./bin/ailab  /opt/local/bin
 

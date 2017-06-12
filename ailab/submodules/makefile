@@ -25,7 +25,8 @@ install:
 	$(MAKE) -C ./librad -f bootstrap.mk $@
 	$(MAKE) -C ./asdf-central-registry $@
 	$(MAKE) -C ./shen-sbcl $@
-	$(MAKE) -C ./tecla -f bootstrap.mk $@
+	-$(MAKE) -C ./tecla -f bootstrap.mk $@
+	(cd ./tecla; cp -f enhance /usr/local/bin)
 
 clean:
 	$(MAKE) -C librad $@

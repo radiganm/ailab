@@ -13,7 +13,6 @@
   (load-shared-object "libfftw3.so")
   (load-shared-object "libanl.so")
   (load-shared-object "libblas.so")
-  (load-shared-object "libfftw.so")
   (load-shared-object "/opt/local/lib/librad.so")
  ;(load-shared-object (concatenate 'string (sb-posix:getcwd) "/submodules/librad/.libs/librad.so"))
  ;(load-shared-object "/opt/local/lib/librad.so")

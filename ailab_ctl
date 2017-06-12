@@ -86,7 +86,7 @@ EOT
 
   trap sigint SIGINT
 
-  /opt/local/bin/ailab $*
+  /usr/local/bin/enhance /opt/local/bin/ailab $*
 
 # cmd=$1; shift
 # case $cmd in

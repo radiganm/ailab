@@ -3,16 +3,19 @@
 ## Copyright 2016 Mac Radigan
 ## All Rights Reserved
 
-.PHONY: submodules clean clobber update install librad shen-sbcl
+.PHONY: submodules clean clobber update install librad shen-sbcl tecla
 .DEFAULT_GOAL := submodules
 
-submodules: librad shen-sbcl
+submodules: librad shen-sbcl tecla
 
 librad:
 	$(MAKE) -C ./librad -f bootstrap.mk
 
 shen-sbcl:
 	$(MAKE) -C ./shen-sbcl
+
+tecla:
+	$(MAKE) -C ./tecla -f bootstrap.mk
 
 update:
 	git submodule init && git submodule update --recursive --remote
@@ -22,6 +25,7 @@ install:
 	$(MAKE) -C ./librad -f bootstrap.mk $@
 	$(MAKE) -C ./asdf-central-registry $@
 	$(MAKE) -C ./shen-sbcl $@
+	$(MAKE) -C ./tecla -f bootstrap.mk $@
 
 clean:
 	$(MAKE) -C librad $@

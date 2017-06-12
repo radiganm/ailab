@@ -7,3 +7,6 @@
 [submodule "ailab/submodules/shen-sbcl"]
 	path = ailab/submodules/shen-sbcl
 	url = https://github.com/radiganm/shen-sbcl.git
+[submodule "ailab/submodules/tecla"]
+	path = ailab/submodules/tecla
+	url = https://github.com/radiganm/tecla.git

@@ -38,6 +38,8 @@
       freeglut3-dev          \
       libglm-dev             
 
+  RUN mkdir -p /opt
+
   # install AILab
   COPY ./ailab /opt/ailab
   RUN make -C /opt/ailab install

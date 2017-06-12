@@ -8,7 +8,8 @@
 
 BLDDIR=./build
 
-docker-args := -it -P -p4005:4005 -v /dev:/dev -v /tmp:/tmp -ipc host -net host
+docker-args := -it -P -p4005:4005 -v /dev:/dev -v /tmp:/tmp 
+#docker-args := -it -P -p4005:4005 -v /dev:/dev -v /tmp:/tmp -ipc host -net host
 
 all: applications
 

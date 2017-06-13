@@ -8,9 +8,9 @@
 
   (defun swank-client () 
     (defvar *myswank* (swank-client:slime-connect "127.0.0.1" 4005))
-    (format t "type (hup) to quit~%")
-    (format t "~a" ">< ")
-    (finish-output *standard-output*)
+    (format *error-output* "type (hup) to quit~%")
+    (format *error-output* "~a" ">< ")
+    (finish-output *error-output*)
     (loop 
       (let ((line (read)))
         (cond 
@@ -18,16 +18,16 @@
             (unwind-protect (restart-case (progn
               (let ( (result (swank-client:slime-eval line *myswank*)) )
                 (progn
-                  (format t "~a~%>< " result)
-                  (finish-output *standard-output*)
+                  (format *error-output* "~a~%>< " result)
+                  (finish-output *error-output*)
                 )
               )
             ))) ; protect
           ) ; "hup"
           (t 
             (progn
-              (format t "~a~%" "exiting")
-              (finish-output *standard-output*)
+              (format *error-output* "~a~%" "exiting")
+              (finish-output *error-output*)
               (SB-EXT:QUIT)
             ) ; progn
           ) ; t

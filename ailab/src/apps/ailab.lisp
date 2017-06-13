@@ -8,14 +8,10 @@
   (use-package :sb-thread)
 
   (load-shared-object "libgfortran.so.3.0.0")
- ;(load-shared-object "libfftw.so.2.0.7")
- ;(load-shared-object "libfftw.so")
   (load-shared-object "libfftw3.so")
   (load-shared-object "libanl.so")
   (load-shared-object "libblas.so")
   (load-shared-object "/opt/local/lib/librad.so")
- ;(load-shared-object (concatenate 'string (sb-posix:getcwd) "/submodules/librad/.libs/librad.so"))
- ;(load-shared-object "/opt/local/lib/librad.so")
   (sb-alien:define-alien-routine ("test" test) void)
 
   (setf swank::*swank-debug-p* nil)
@@ -31,11 +27,11 @@
   )
 
   (defun repl () 
-    (format t "~a" ">< ")
-    (finish-output *standard-output*)
+    (format *error-output* "~a" ">< ")
+    (finish-output *error-output*)
     (loop (let ( (result (eval (read))) ) 
-      (format t "~a~%>< " result)
-      (finish-output *standard-output*)
+      (format *error-output* "~a~%>< " result)
+      (finish-output *error-output*)
     ))
   )
 
@@ -44,8 +40,8 @@
    ;  (with-cli-options ((uiop:raw-command-line-arguments))
    ;    (x &parameters a &free other)
    ;    (cond 
-   ;      ((eq a "abc") (format t "[X A]: ~a~% " (list x a)))
-   ;      (            (format t "[X A]: ~a~% " "nothing"))
+   ;      ((eq a "abc") (format *error-output* "[X A]: ~a~% " (list x a)))
+   ;      (            (format *error-output* "[X A]: ~a~% " "nothing"))
    ;    )
         (make-thread 'swank-server :arguments '4005)
         (repl)

@@ -17,11 +17,11 @@
   )
 
   (defun repl () 
-    (format t "~a" ">< ")
-    (finish-output *standard-output*)
+    (format *error-output* "~a" ">< ")
+    (finish-output *error-output*)
     (loop (let ( (result (eval (read))) ) 
-      (format t "~a~%>< " result)
-      (finish-output *standard-output*)
+      (format *error-output* "~a~%>< " result)
+      (finish-output *error-output*)
     ))
   )
 
